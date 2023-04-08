@@ -11,6 +11,7 @@ import wishlist from '../../images/wish.svg';
 import watch2 from '../../images/watch-1.avif';
 import { Link, useLocation } from 'react-router-dom';
 
+
 const ProductCard = (props) => {
   const{grid , data }= props;
   console.log(data);
