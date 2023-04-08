@@ -1,0 +1,22 @@
+/* Policy Pages */
+
+.policy {
+    background-color: white;
+    padding: 30px;
+}
+  /* Policy Pages  ends */
+
+
+
+/* Shippping Page */
+
+.total {
+    font-size: 14px;
+    color: #1c1c1b;
+}
+
+.total-price {
+    font-size: 16px;
+    color: #777777;
+}
+  /* Shipping page ends here */
