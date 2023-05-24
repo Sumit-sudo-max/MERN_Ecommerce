@@ -1,10 +1,27 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import BreadCrumbs from '../../components/Site-Layout/BreadCrumbs';
 import Container from '../../components/Container/Container';
 import BlogCard from '../../components/BlogCard/BlogCard';
 import Meta from '../../components/Site-Layout/Meta';
+import { useDispatch , useSelector } from 'react-redux';
+import { getAllBlogs } from '../../features/blogs/blogSlice';
+import  moment  from 'moment';
 
 const Blog = () => {
+    const blogState = useSelector((state) => state?.blog?.blog);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        getBlogs();
+    },[]);
+
+    const getBlogs = () => {
+        dispatch(getAllBlogs());
+    };
+
+
     return (
         <>
         <Meta title={'Blogs'} />
@@ -26,18 +43,21 @@ const Blog = () => {
                 </div>
                 <div className="col-9">
                     <div className="row">
-                        <div className="col-6 mb-3">
-                            <BlogCard />
-                        </div>
-                        <div className="col-6 mb-3">
-                            <BlogCard />
-                        </div>
-                        <div className="col-6 mb-3">
-                            <BlogCard />
-                        </div>
-                        <div className="col-6 mb-3">
-                            <BlogCard />
-                        </div>
+                        {
+                            blogState && blogState?.map((item, index)=>{
+                                return (
+                                    <div className="col-6 mb-3" key={index}>
+                                        <BlogCard 
+                                        id={item?.id} 
+                                        title={item?.title} 
+                                        description={item?.description}  
+                                        image={item?.images[0]?.url}
+                                        date={moment(item?.created_at).format('MMMM Do YYYY, h:mm:ss a')}
+                                        />
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
                 </div>
             </div>

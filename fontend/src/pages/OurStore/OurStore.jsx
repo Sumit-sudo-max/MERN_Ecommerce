@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import Container from '../../components/Container/Container';
 import ProductCard from '../../components/ProductCard/ProductCard';
@@ -21,20 +22,23 @@ import { getAllProducts } from '../../features/products/productSlice';
 
 const OurStore = () => {
 
-    const [grid, setGrid]= useState();
+    const [grid, setGrid]= useState(4);
 
-    const productState = useSelector((state) => state.product.product);
+    const productState = useSelector((state) => state?.product?.product);
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    useEffect (() => {
         getProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
+    }, []);
 
-    const getProducts =() => {
+
+    const getProducts = () =>{
         dispatch(getAllProducts());
-    }
+    };
+
+
+
 
 
     return (
@@ -271,7 +275,7 @@ const OurStore = () => {
                     </div>
                     <div className="products-list pb-5">
                     <div className="d-flex gap-10 flex-wrap">
-                        <ProductCard data = {productState} grid={grid} />
+                        <ProductCard data={productState ? productState : []}  grid={grid} />
                     </div>
                     </div>
                 </div>

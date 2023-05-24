@@ -109,7 +109,7 @@ const CompareProduct = () => {
         </div>
     </Container>
     </>
-  );
+    );
 };
 
 export default CompareProduct

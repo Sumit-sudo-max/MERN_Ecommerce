@@ -2,11 +2,11 @@ import React from 'react';
 import Meta from '../../../components/Site-Layout/Meta';
 import BreadCrumbs from '../../../components/Site-Layout/BreadCrumbs';
 import Container from '../../../components/Container/Container';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../../features/user/userSlice';
 
 
@@ -16,6 +16,9 @@ const loginSchema = yup.object({
 });
 
 const Login = () => {
+
+    const authState = useSelector(state => state.auth);
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -27,6 +30,7 @@ const Login = () => {
         validationSchema : loginSchema ,
         onSubmit: (values) => {
             dispatch(loginUser(values));
+                    navigate('/')
         },
     });
 

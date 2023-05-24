@@ -28,9 +28,10 @@
     color: #2e7818;
 }
 
+
 .small-banner-content {
     top: 25%;
-    left: 10%;
+    left: 20%;
 }
 
 .small-banner-content h4 {
@@ -111,28 +112,99 @@
 .famous-card .famous-content {
     top: 10%;
     left: 5%;
-  }
-  .famous-card img {
+}
+.famous-card img {
     border-radius: 10px;
-  }
-  .famous-content h5 {
+}
+.famous-content h5 {
     font-size: 13px;
     line-height: 20px;
     font-weight: 400px;
     color: white;
     margin-bottom: 7px;
     text-transform: uppercase;
-  }
-  .famous-content h6 {
+}
+.famous-content h6 {
     font-size: 24px;
     line-height: 38px;
     font-weight: 500;
     color: white;
-  }
-  .famous-content p {
+}
+.famous-content p {
     font-size: 16px;
     line-height: 24px;
     font-weight: 100;
     color: white;
-  }
-  /* famous card ends */
+}
+/* famous card ends */
+
+
+
+@media only screen and (max-width: 768px) {
+    .main-banner-content {
+    top: 10%;
+    left: 2%;
+    font-size: 10px;
+    }
+    .main-banner-content h4 {
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0;
+    }
+    .main-banner-content h5 {
+    font-size: 22px;
+    line-height: 38px;
+    margin: 0 0 10px;
+    }
+    .main-banner-content p {
+    font-size: 14px;
+    line-height: 24px;
+    margin: 0;
+    }
+    .small-banner-content {
+        top: 15%;
+        left: 5%;
+    }
+    .small-banner-content h4 {
+        font-size: 12px;
+        line-height: 20px;
+        margin: 0 0 6px;
+    }
+    .small-banner-content h5 {
+        font-size: 20px;
+        line-height: 32px;
+    }
+    .small-banner-content p {
+        font-size: 12px;
+        line-height: 20px;
+    }
+    .small-banner {
+        width: 100%;
+    }
+    
+    .categories > div {
+        width: 50%;
+        padding: 10px 5px;
+    }
+    .categories > div > div {
+        width: 50%;
+    }
+    
+    .famous-card .famous-content {
+        top: 5%;
+        left: 5%;
+    }
+    .famous-content h5 {
+        font-size: 11px;
+        line-height: 16px;
+        margin-bottom: 5px;
+    }
+    .famous-content h6 {
+        font-size: 20px;
+        line-height: 30px;
+    }
+    .famous-content p {
+        font-size: 14px;
+        line-height: 20px;
+    }
+}    

@@ -5,10 +5,37 @@ import BreadCrumbs from '../../components/Site-Layout/BreadCrumbs';
 import Container from '../../components/Container/Container';
 import { AiOutlineHome, AiOutlineMail } from "react-icons/ai";
 import { BiPhoneCall, BiInfoCircle } from "react-icons/bi";
+import * as yup from 'yup';
+import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 import './Contact.css';
+import { createQuerry } from '../../features/contact/contactSlice';
 
-
+const contactSchema = yup.object(
+  {
+    name : yup.string().required("Name is Required"),
+    email : yup.string().nullable().email("Email should be Valid ").required('Email is Required'),
+    mobile : yup.string().default('').nullable().required("Mobile number is Required"),
+    comment : yup.string().default('').nullable().required("Comment is Required"),
+  }
+)
 const Contact = () => {
+
+  const dispatch = useDispatch();
+
+  const formik = useFormik({
+    initialValues: {
+        name: '',
+        email: '' ,
+        mobile: '',
+        comment : '',
+    },
+    validationSchema : contactSchema,
+    onSubmit: (values) => {
+        dispatch(createQuerry(values));
+    },
+});
+
   return (
     <>
     <Meta title = {'Contact'} />
@@ -32,37 +59,72 @@ const Contact = () => {
               <h3 className="contact-title mb-4">
                 Contact
               </h3>
-              <form action="" className="d-flex flex-column gap-15">
+              <form action="" onClick = {formik.handleSubmit} className="d-flex flex-column gap-15">
                 <div>
                   <input type="text" 
                   className="form-control" 
                   placeholder='Name'
+                  name= 'name'
+                  onChange={formik.handleChange("name")}
+                  onBlur={formik.handleBlur("name")}
+                  value={formik.values.name}
                   />
+                  <div className="errors">
+                    {
+                      formik.touched.name && formik.errors.name
+                    }
+                  </div>
                 </div>
                 <div>
                   <input type="email" 
                   className="form-control" 
                   placeholder='Email'
+                  name='email'
+                  onChange={formik.handleChange("email")}
+                  onBlur={formik.handleBlur("email")}
+                  value={formik.values.email}
                   />
+                  <div className="errors">
+                    {
+                      formik.touched.email && formik.errors.email
+                    }
+                  </div>
                 </div>
+                  <div>
+                    < input 
+                      className='form-control'
+                      placeholder='Mobile Number'
+                      name = 'mobile'
+                      onChange ={ formik.handleChange("mobile")}
+                      onBlur={formik.handleBlur("mobile")}
+                      value={formik.values.mobile}
+                    />
+                    <div className="errors">
+                    {
+                      formik.touched.mobile && formik.errors.mobile
+                    }
+                  </div>
+                  </div>
                 <div>
-                  <input type="telephone" 
-                  className="form-control" 
-                  placeholder='Mobile Number'
-                  />
-                </div>
-                <div>
-                  <textarea 
-                  name="" 
+                  <textarea
                   id="" 
                   cols="30" 
                   rows="10" 
                   className="form-control w-100"
                   placeholder='Comments'
-                  ></textarea>
+                  name='comment'
+                  onChange={formik.handleChange("comment")}
+                  onBlur={formik.handleBlur("comment")}
+                  value={formik.values.comment}
+                  />
+                  <div className="errors">
+                    {
+                      formik.touched.comment && formik.errors.comment
+                    }
+                  </div>
                 </div>
                 <div>
-                  <button className="button border-0">Submit</button>
+                  <button className="button border-0" type='submit'>Submit</button>
                 </div>
               </form>
             </div>

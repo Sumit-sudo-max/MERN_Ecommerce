@@ -1,29 +1,29 @@
 /* header css */
 
-.header-top-strip{
+.header-top-strip {
     border-bottom: 1px solid rgb(252, 233, 233);
     background-color: rgb(4, 2, 44);
 }
 
-.header-upper{
+.header-upper {
     background-color: rgb(4, 2, 44);
 }
 
-.header-bottom{
+.header-bottom {
     background-color: rgb(35, 34, 69);
 }
 
-.header-upper .input-group-text{
+.header-upper .input-group-text {
     background-color: rgb(194, 254, 179);
 }
 
-.header-upper .header-upper-links img{
+.header-upper .header-upper-links img {
     width: 35px;
     height: 35px;
 }
 
 .header-bottom .menu-links a,
-.header-bottom .dropdown button{
+.header-bottom .dropdown button {
     color:rgb(203, 242, 144);
     font-size: 14px;
     line-height: 18px;
@@ -35,13 +35,14 @@
 .header-bottom .dropdown button:focus {
     box-shadow: none;
 }
+
 .header-bottom .dropdown-menu {
     background-color: rgb(49, 49, 49);
     width: 100%;
     transform: translate3d(0px, 57px, 0px) !important;
 }
 
-.header-.header-bottom .dropdown-item {
+.header-bottom .header-bottom .dropdown-item {
     padding: 20px;
     margin-bottom: 3px;
     border-bottom: 1px solid grey;
@@ -52,3 +53,43 @@
     color: rgb(161, 161, 60) !important;
 }
 
+/* Media Query */
+@media only screen and (max-width: 768px) {
+    .header-upper .input-group-text {
+        background-color: rgb(194, 254, 179);
+    }
+
+    .header-upper .header-upper-links img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .header-upper-links p {
+        display: none;
+    }
+    .header-bottom .menu-links a,
+    .header-bottom .dropdown button {
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 400;
+        letter-spacing: 0.3;
+        text-transform: uppercase;
+    }
+
+    .header-bottom .dropdown-menu {
+        background-color: rgb(49, 49, 49);
+        width: 100%;
+        transform: none !important;
+    }
+
+    .header-bottom .dropdown-item {
+        padding: 15px;
+        margin-bottom: 3px;
+        border-bottom: 1px solid grey;
+    }
+
+    .header-bottom .dropdown-item:hover {
+        background-color: transparent;
+        color: rgb(161, 161, 60) !important;
+    }
+}

@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { productService } from "./productService";
 
 
+
 export const getAllProducts = createAsyncThunk(
-    'product/get',
-    async(thunkAPI) => {
+    'product/get',async(thunkAPI) => {
     try{
         return await productService.getProducts();
     }catch(error){
@@ -12,13 +12,35 @@ export const getAllProducts = createAsyncThunk(
     }
 });
 
+
+export const getAProduct = createAsyncThunk(
+    'product/getSingleProduct',async(id,thunkAPI) => {
+    try{
+        return await productService.getSingleProduct(id);
+    }catch(error){
+        return thunkAPI.rejectWithValue(error);
+    }
+});
+
+export const addToWishlist = createAsyncThunk(
+    'product/wishlist',
+    async( prodId , thunkAPI ) => {
+    try{
+        return await productService.addToWishlist(prodId);
+    }catch(error){
+        return thunkAPI.rejectWithValue(error);
+    }
+});
+
+
 const productState = {
-    product:'',
+    product:"",
     isError: false,
     isSuccess: false,
     isLoading:false,
-    message : ''
+    message : '',
 };
+
 
 export const productSlice = createSlice ( {
     name:'product',
@@ -26,9 +48,9 @@ export const productSlice = createSlice ( {
     reducers: {},
     extraReducers: (builder) =>{
         builder
-        .addCase(getAllProducts.pending, (state) =>{
+        .addCase(getAllProducts.pending,(state) => {
             state.isLoading = true;
-        }) 
+        })
         .addCase(getAllProducts.fulfilled, (state, action) =>{
             state.isLoading = false;
             state.isError = false;
@@ -36,13 +58,46 @@ export const productSlice = createSlice ( {
             state.product = action.payload;
         })
         .addCase(getAllProducts.rejected, (state, action) =>{
+            state.isError = true;
             state.isLoading = false;
+            state.isSuccess = false;
+            state.message = action.error;
+        })
+        .addCase(addToWishlist.pending , (state) => {
+            state.isLoading = true;
+        })
+        .addCase(addToWishlist.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.isError = false;
+            state.isSuccess = true;
+            state.addToWishlist = action.payload;
+            state.message = 'Product added to Wishlist'
+        })
+        .addCase(addToWishlist.rejected , (state , action) => {
+            state.isLoading =false;
+            state.isError = true;
+            state.isSuccess = false;
+            state.message = action.error;
+        })
+        .addCase(getAProduct.pending , (state) => {
+            state.isLoading = true;
+        })
+        .addCase(getAProduct.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.isError = false;
+            state.isSuccess = true;
+            state.singleproduct = action.payload;
+            state.message = 'Product fetched to Successfully'
+        })
+        .addCase(getAProduct.rejected , (state , action) => {
+            state.isLoading =false;
             state.isError = true;
             state.isSuccess = false;
             state.message = action.error;
         })
     }
 });
+
 
 
 export default productSlice.reducer;

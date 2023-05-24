@@ -3,6 +3,9 @@ const Product = require('../models/productModel');
 const User = require("../models/userModel");
 const slugify = require("slugify");
 const validateMongoDbId = require('../utils/validateMongodbId');
+const { cloudinaryUploadImg, cloudinaryDeleteImg } = require('../utils/cloudinary');
+const fs = require('fs');
+
 
 
 // Create PRoduct
@@ -57,7 +60,7 @@ const getSingleProduct = asyncHandler(async(req, res) =>{
     const {id} = req.params;
     validateMongoDbId(id);
     try{
-        const findProduct = await Product.findById(id);
+        const findProduct = await Product.findById(id).populate("color");
 
         res.json(findProduct);
     }
@@ -197,19 +200,66 @@ const rating = asyncHandler(async (req, res) => {
             prodId,
             {
             totalrating: actualRating,
-        },
-        { new: true }
+            },
+            { new: true }
         );
         res.json(finalproduct);
         } catch (error) {
         throw new Error(error);
+    }
+});
+
+const uploadImages = asyncHandler(async(req , res) => {
+    const { id } = req.params;
+    validateMongoDbId(id);
+    // console.log(req.files);
+    try{
+        const uploader = (path) => cloudinaryUploadImg(path, "images");
+        const urls=[];
+        const files = req.files;
+        for (const file of files){
+            const {path} = file;
+            const newpath = await uploader(path);
+            // console.log(newpath);
+            urls.push(newpath);
+            fs.unlinkSync(path);
         }
+        const findProduct = await Product.findByIdAndUpdate(
+            id, {
+                    images: urls.map((file) =>{
+                    return file;
+                }),
+        },
+        {
+            new : true,
+        }
+        );
+        res.json(findProduct);
+    }catch(error){
+        throw new Error(error);
+    }
+});
+
+// Delete images
+const deleteImages = asyncHandler(async(req,res) => {
+    const { id } = req.params;
+    try{
+        const deleted = cloudinaryDeleteImg( id, 'images');
+        res.json({message : 'Deleted Successfully'});
+    }catch(error){
+        throw new Error(error);
+    }
 });
 
 
-
-
-
-module.exports = {createProduct, getSingleProduct , getAllProduct , updateProduct, deleteProduct, addToWishlist, 
-    rating 
+module.exports = {
+    createProduct, 
+    getSingleProduct , 
+    getAllProduct , 
+    updateProduct, 
+    deleteProduct, 
+    addToWishlist, 
+    rating ,
+    uploadImages,
+    deleteImages
 }

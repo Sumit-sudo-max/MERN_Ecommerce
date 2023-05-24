@@ -40,3 +40,8 @@ a{
   background-color: #21930d;
   color: black;
 }
+
+.errors{
+  color:red;
+  font-size: 12px;
+}

@@ -7,30 +7,14 @@ import user from "../../images/user.svg";
 import cart from "../../images/cart.svg";
 import menu from "../../images/menu.svg";
 import './Header.css';
+import { useSelector } from "react-redux";
 
 
 const Header = () => {
+
+    const authState = useSelector(state => state.auth)
     return (
         <>
-        {/* <header className="header-top-strip py-3"> */}
-        {/* <header> */}
-            {/* <div className="container-xxl"> */}
-            {/* <div className="row">
-                <div className="col-6">
-                <p className="text-success mb-0">
-                    Free Shipping Over ₹499 & Free Returns
-                </p>
-                </div>
-                <div className="col-6">
-                <p className="text-end text-success mb-0">
-                    HelpLine:
-                    <a className="text-danger" href="tel:+91 9876543210">
-                    +91-9876543210
-                    </a>
-                </p>
-                </div>
-            </div> */}
-            {/* </div> */}
         {/* </header> */}
         <header className="header-upper py-3">
             <div className="container-xxl">
@@ -84,9 +68,15 @@ const Header = () => {
                         className="d-flex align-items-center gap-10 text-success"
                     >
                         <img src={user} alt="user" />
-                        <p className="mb-0">
-                        Log in <br /> My Account
-                        </p>
+                        {
+                            authState?.user === null ?  
+                            <p className="mb-0">
+                                Log in <br /> My Account
+                            </p>:
+                                <p className="mb-0">
+                                    {authState?.user?.firstname}
+                                </p>
+                        }
                     </Link>
                     </div>
                     <div>

@@ -4,28 +4,28 @@ const mongoose = require("mongoose"); // Erase if already required
 const blogSchema = new mongoose.Schema(
     {
         title: {
-        type: String,
-        required: true,
+            type: String,
+            required: true,
         },
         description: {
-        type: String,
-        required: true,
+            type: String,
+            required: true,
         },
         category: {
-        type: String,
-        required: true,
+            type: String,
+            required: true,
         },
         numViews: {
-        type: Number,
-        default: 0,
+            type: Number,
+            default: 0,
         },
         isLiked: {
-        type: Boolean,
-        default: false,
+            type: Boolean,
+            default: false,
         },
         isDisliked: {
-        type: Boolean,
-        default: false,
+            type: Boolean,
+            default: false,
         },
         likes: [
         {
@@ -41,8 +41,8 @@ const blogSchema = new mongoose.Schema(
         ],
 
         author: {
-        type: String,
-        default: "Admin",
+            type: String,
+            default: "Admin",
         },
         images: [],
     },
